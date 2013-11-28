@@ -1,0 +1,17 @@
+%h1 Listing poketypes
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @poketypes.each do |poketype|
+    %tr
+      %td= link_to 'Show', poketype
+      %td= link_to 'Edit', edit_poketype_path(poketype)
+      %td= link_to 'Destroy', poketype, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Poketype', new_poketype_path

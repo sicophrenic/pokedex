@@ -1,0 +1,17 @@
+%h1 Listing pokemons
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @pokemons.each do |pokemon|
+    %tr
+      %td= link_to 'Show', pokemon
+      %td= link_to 'Edit', edit_pokemon_path(pokemon)
+      %td= link_to 'Destroy', pokemon, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Pokemon', new_pokemon_path

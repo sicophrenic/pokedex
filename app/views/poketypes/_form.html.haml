@@ -1,0 +1,10 @@
+= form_for @poketype do |f|
+  - if @poketype.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@poketype.errors.count, "error")} prohibited this poketype from being saved:"
+      %ul
+        - @poketype.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'
