@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-#
 class Pokemon < ActiveRecord::Base
-  attr_accessible :poke_id, :name
+  attr_accessible :poke_id, :name, :species_id
 
   has_and_belongs_to_many :poketypes
   has_many :evolutions, :foreign_key => 'evolves_from'

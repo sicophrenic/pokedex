@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20131128061416) do
   create_table "pokemons", force: true do |t|
     t.integer  "poke_id",    null: false
     t.string   "name",       null: false
+    t.integer  "species_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 20131128061416) do
   add_index "pokemons", ["name"], name: "index_pokemons_on_name", unique: true
   add_index "pokemons", ["poke_id", "name"], name: "index_pokemons_on_poke_id_and_name", unique: true
   add_index "pokemons", ["poke_id"], name: "index_pokemons_on_poke_id", unique: true
+  add_index "pokemons", ["species_id"], name: "index_pokemons_on_species_id"
 
   create_table "pokemons_poketypes", force: true do |t|
     t.integer  "pokemon_id"
@@ -47,13 +49,12 @@ ActiveRecord::Schema.define(version: 20131128061416) do
 
   create_table "poketypes", force: true do |t|
     t.string   "name",       null: false
-    t.string   "color_code", null: false
+    t.string   "color",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "poketypes", ["color_code"], name: "index_poketypes_on_color_code", unique: true
-  add_index "poketypes", ["name", "color_code"], name: "index_poketypes_on_name_and_color_code", unique: true
+  add_index "poketypes", ["name", "color"], name: "index_poketypes_on_name_and_color", unique: true
   add_index "poketypes", ["name"], name: "index_poketypes_on_name", unique: true
 
   create_table "users", force: true do |t|
