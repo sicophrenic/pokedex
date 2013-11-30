@@ -1,6 +1,74 @@
-%p#notice= notice
+.font-color-white
+  #left_side_background
+  #right_side_background
 
+  - case @colors.count
+  - when 1
+    = javascript_tag "$('#left_side_background').css('background', '#{@colors.first}')"
+    = javascript_tag "$('#right_side_background').css('background', '#{@colors.first}')"
+  - when 2
+    = javascript_tag "$('#left_side_background').css('background', '#{@colors.first}')"
+    = javascript_tag "$('#right_side_background').css('background', '#{@colors.last}')"
 
-= link_to 'Edit', edit_pokemon_path(@pokemon)
-\|
-= link_to 'Back', pokemons_path
+  %p#notice= notice
+
+  %h1.center #{@pokemon.name}
+
+  #devolution_half
+    %h3.center
+      Devolutions:
+      - if @pokemon.devolutions.count > 0
+        - @pokemon.devolutions.each do |devolution|
+          - pokemon = Pokemon.find(devolution.evolves_from)
+          %br
+          = link_to pokemon_path(pokemon.id), :class => 'btn btn-default' do
+            #{pokemon.name} (#{devolution.evolves_by})
+  #evolution_half
+    %h3.center
+      Evolutions:
+      - if @pokemon.evolutions.count > 0
+        - @pokemon.evolutions.each do |evolution|
+          - pokemon = Pokemon.find(evolution.evolves_to)
+          %br
+          = link_to pokemon_path(pokemon.id), :class => 'btn btn-default' do
+            #{pokemon.name} (#{evolution.evolves_by})
+
+  / #devolution_half
+  /   %h3.center
+  /     Evolves from:
+  /   - if @pokemon.devolutions.count > 0
+  /     %table.table.table-condensed
+  /       %thead
+  /         %tr
+  /           %th
+  /             Name
+  /           %th
+  /             Evolves by
+  /       %tbody
+  /         - @pokemon.devolutions.each do |devolution|
+  /           - pokemon = Pokemon.find(devolution.evolves_from)
+  /           %tr
+  /             %td
+  /               #{pokemon.name}
+  /             %td
+  /               (#{devolution.evolves_by})
+  /   - else
+  /     None
+  / #evolution_half
+  /   %h3.center
+  /     Evolves to:
+  /   - if @pokemon.evolutions.count > 0
+  /     %dl.dl-horizontal
+  /       - @pokemon.evolutions.each do |evolution|
+  /         .row
+  /           - pokemon = Pokemon.find(evolution.evolves_to)
+  /           .pokemon_link
+  /             = link_to pokemon_path(pokemon) do
+  /               = pokemon.name
+  /               (#{evolution.evolves_by})
+  /   - else
+  /     None
+
+/ = link_to 'Edit', edit_pokemon_path(@pokemon)
+/ \|
+/ = link_to 'Back', pokemons_path

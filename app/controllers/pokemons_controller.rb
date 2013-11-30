@@ -1,4 +1,7 @@
+#-*- coding: utf-8 -*-#
 class PokemonsController < ApplicationController
+  before_action :require_signed_in
+  before_action :require_admin, :except => [:show]
   before_action :set_pokemon, only: [:show, :edit, :update, :destroy]
 
   # GET /pokemons
@@ -10,6 +13,7 @@ class PokemonsController < ApplicationController
   # GET /pokemons/1
   # GET /pokemons/1.json
   def show
+    @colors = @pokemon.poketypes.map(&:color)
   end
 
   # GET /pokemons/new

@@ -1,4 +1,7 @@
+#-*- coding: utf-8 -*-#
 class PoketypesController < ApplicationController
+  before_action :require_signed_in
+  before_action :require_admin
   before_action :set_poketype, only: [:show, :edit, :update, :destroy]
 
   # GET /poketypes

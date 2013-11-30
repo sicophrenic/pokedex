@@ -1,17 +1,23 @@
-%ul.nav.nav-tabs.nav-justified.custom-footer
-  %li
-    %a{ :href => 'http://benspotatoes.mit-license.org' }
-      License
-  %li
-    %a{ :href => about_path }
-      About
+/ %ul.nav.nav-tabs.nav-justified.custom-footer
+/   %li
+/     %a{ :href => 'http://benspotatoes.mit-license.org' }
+/       License
+/   %li
+/     %a{ :href => about_path }
+/       About
 
-- if Rails.env.development?
-  .debug
-    _____
-    %h2 Debug Info:
-    %h3 Params:
-    = params.inspect
-    %h3 Flash:
-    = flash.inspect
-    %h3 Session:
+- if false
+  - if Rails.env.development?
+    .debug
+      _____
+      %h2 Debug Info:
+      - if @pokemon && @colors
+        .font-color-white
+          %h3 Colors:
+          = @colors.inspect
+      %h3 Params:
+      = params.inspect
+      %h3 Flash:
+      = flash.inspect
+      %h3 Session:
+      = session.inspect

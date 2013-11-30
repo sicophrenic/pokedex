@@ -46,15 +46,15 @@ class Evolution < ActiveRecord::Base
     when 6
       require 'csv'
       CSV.foreach("#{Rails.root}/public/data/location_names.csv") do |row|
-        if row[0] == special_id
-          return row[2] # need location name
+        if row[0] == special_id && row[1] == '9' # make sure to get english stuff
+          return row[2].capitalize # need location name
         end
       end
     when 7
       require 'csv'
       CSV.foreach("#{Rails.root}/public/data/items.csv") do |row|
         if row[0] == special_id
-          return row[1] # need item name
+          return row[1].capitalize # need item name
         end
       end
     when 8
@@ -63,7 +63,7 @@ class Evolution < ActiveRecord::Base
       require 'csv'
       CSV.foreach("#{Rails.root}/public/data/moves.csv") do |row|
         if row[0] == special_id
-          return row[1] # need move name
+          return row[1].capitalize # need move name
         end
       end
     when 10
@@ -78,12 +78,13 @@ class Evolution < ActiveRecord::Base
     when 14
       return special_id + "(don't really know what this means)" # wut :|
     when 15
-      return Pokemon.where(:species_id => special_id.to_i).first.name # find pokemon name
+      return "#{Pokemon.where(:species_id => special_id.to_i).first.name} (#{special_id})" # find pokemon name
     when 16
       return Poketype::POKETYPE_IDS[special_id.to_i] # find pokemon type name
       # can't use Poketype.find because ids might not match (until db gets dropped)
     when 17
-      return Pokemon.where(:species_id => special_id.to_i).first.name # find pokemon name
+      return "#{Pokemon.where(:species_id => special_id.to_i).first.name} (#{special_id})" # find pokemon name
     end
+    raise 'Pokerror! Missing data'
   end
 end

@@ -1,0 +1,7 @@
+%h1 Search results for '#{@query}'
+
+- @pokemons.each do |pokemon|
+  .col-lg-12
+    = link_to pokemon_path(pokemon.id), :method => :get do
+      %h3
+        = pokemon.name

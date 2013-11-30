@@ -2,18 +2,20 @@
 /  %a.navbar-brand.pull-left{ :href => root_path }
 /    Sorted
 
-.navbar.navbar-inverse
+.navbar
   .navbar-header
     %button.navbar-toggle{ "type" => "button", "data-toggle" => "collapse", "data-target" => ".navbar-responsive-collapse" }
       %span.icon-bar
       %span.icon-bar
       %span.icon-bar
     %a.navbar-brand{ :href => root_path }
-      -# TODO-name
-      Default
+      Simpledex
   .collapse.navbar-collapse.navbar-responsive-collapse
     %ul.nav.navbar-nav.pull-right
       - if user_signed_in?
+        %li
+          %a{ :href => search_path }
+            Search
         %li
           %a{ :href => destroy_user_session_path }
             Sign Out

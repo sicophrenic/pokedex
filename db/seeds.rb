@@ -9,6 +9,10 @@
 
 require 'csv'
 
+def mod_capitalize(s)
+  return s.slice(0,1).capitalize + s.slice(1..-1)
+end
+
 # Types
 if Poketype.count != 18
   Poketype.delete_all
@@ -89,7 +93,7 @@ if true # Evolution.count != 364
       evolves_by_string << "Evolves at level #{row[4]}." if row[4].present?
     elsif evolves_by_id == 2
       held_item_id = row[7]
-      held_item = Evolution.translate_special_id(7, held_item_id)
+      held_item = Evolution.translate_special_id(7, held_item_id) if row[7]
       evolves_by_string << "Trade for evolve" + (row[7].nil? ? '.' : " while holding #{held_item}.")
     elsif evolves_by_id == 3
       item_id = row[3]
@@ -101,6 +105,7 @@ if true # Evolution.count != 364
 
     extras = []
     (5..17).each do |code|
+      next if code == 7 && evolves_by_id == 2 # don't want duplicate 'holding' clauses
       if row[code].present?
         extras << (Evolution::SPECIAL_CODES[code] + Evolution.translate_special_id(code, row[code]))
       end
@@ -110,10 +115,18 @@ if true # Evolution.count != 364
         extras << Evolution::SPECIAL_CODES[code]
       end
     end
-    if extras.count > 1
+    if extras.count > 0
+      if evolves_by_string.length > 0
+        evolves_by_string += ' '
+      end
+      extras = extras.map do |extra|
+        mod_capitalize(extra)
+      end
       evolves_by_string += extras.join(', ')
       evolves_by_string += '.'
+      evolves_by_string = mod_capitalize(evolves_by_string)
     end
+    evolves_by_string = mod_capitalize(evolves_by_string)
 
     puts "\tEvolution from: #{evolves_from_id}, Evolution to: #{evolves_to_id}, Evolution by: #{evolves_by_string}"
     if evolution = Evolution.where(:evolves_to => evolves_to_id, :evolves_From => evolves_from_id).first
