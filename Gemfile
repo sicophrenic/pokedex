@@ -25,6 +25,7 @@ gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
 
 # Libraries
 gem 'devise'
+gem 'rufus-scheduler'
 
 group :production do
   gem 'thin'
