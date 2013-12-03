@@ -129,7 +129,7 @@ if true # Evolution.count != 364
     evolves_by_string = mod_capitalize(evolves_by_string)
 
     puts "\tEvolution from: #{evolves_from_id}, Evolution to: #{evolves_to_id}, Evolution by: #{evolves_by_string}"
-    if evolution = Evolution.where(:evolves_to => evolves_to_id, :evolves_From => evolves_from_id).first
+    if evolution = Evolution.where(:evolves_to => evolves_to_id, :evolves_from => evolves_from_id).first
       evolution.evolves_by += " Or #{evolves_by_string}"
       evolution.save!
     else
