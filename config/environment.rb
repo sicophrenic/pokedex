@@ -4,3 +4,5 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
 Pokedex::Application.initialize!
+
+# For reference, the existing implementation of Sendgrid config worked. The message just went to Spam.
