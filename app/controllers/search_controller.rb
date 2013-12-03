@@ -5,7 +5,7 @@ class SearchController < ApplicationController
 
   def find_pokemon
     @query = params[:query]
-    @pokemons = Pokemon.where('name like ?', @query)
+    @pokemons = Pokemon.where('name like ?', @query.capitalize)
     if @pokemons.length == 1
       redirect_to pokemon_path(@pokemons.take!.id)
     end
