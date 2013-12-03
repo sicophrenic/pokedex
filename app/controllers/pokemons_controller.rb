@@ -13,7 +13,11 @@ class PokemonsController < ApplicationController
   # GET /pokemons/1
   # GET /pokemons/1.json
   def show
-    @colors = @pokemon.poketypes.map(&:color)
+    if came_from_pokemon_id = params[:evolves_from]
+      @evolution = Evolution.where(
+        :evolves_from => came_from_pokemon_id,
+        :evolves_to => @pokemon.id).take
+    end
   end
 
   # GET /pokemons/new
@@ -68,7 +72,8 @@ class PokemonsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pokemon
-      @pokemon = Pokemon.find(params[:id])
+      @pokemon = Pokemon.find(params[:id] || params[:pokemon_id])
+      @colors = @pokemon.poketypes.map(&:color)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

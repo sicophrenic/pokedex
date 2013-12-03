@@ -21,7 +21,9 @@ Pokedex::Application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :poketypes
-  resources :pokemons
+  resources :pokemons do
+    get '/from/:evolves_from', :action => 'show', :as => 'from'
+  end
 
   # Example resource route with options:
   #   resources :products do

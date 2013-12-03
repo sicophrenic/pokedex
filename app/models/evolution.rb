@@ -30,6 +30,15 @@ class Evolution < ActiveRecord::Base
   belongs_to :evo_from, :class_name => 'Pokemon', :foreign_key => 'evolves_from'
   belongs_to :evo_to, :class_name => 'Pokemon', :foreign_key => 'evolves_to'
 
+  def evolved_from(get_name = true)
+    pkmn = Pokemon.find(evolves_from)
+    if get_name
+      pkmn.name
+    else
+      pkmn
+    end
+  end
+
   def self.translate_special_id(code, special_id)
     special_id = special_id.to_s
     if Rails.env.development?
