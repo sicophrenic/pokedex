@@ -13,30 +13,42 @@
   %p#notice= notice
 
   .jumbotron.pokemon-hero
-    %h1
+    %h1.pokemon-hero-name
       #{@pokemon.name}
     - if @evolution
       %p
         Evolves from #{@evolution.evolved_from}: #{@evolution.evolves_by}
 
   #devolution_half
-    %h3.center
-      Devolutions:
+    %h3
+      Devolutions
       - if @pokemon.devolutions.count > 0
         - @pokemon.devolutions.each do |devolution|
           - pokemon = Pokemon.find(devolution.evolves_from)
           %br
           = link_to pokemon_from_path(pokemon.id, :evolves_from => @pokemon.id), :class => 'btn btn-default btn-evolution' do
-            #{pokemon.name}
+            %h1
+              #{pokemon.name}
+      - else
+        %br
+        = link_to '#', :disabled => true, :class => 'btn btn-default btn-evolution' do
+          %h1
+            (None)
   #evolution_half
-    %h3.center
-      Evolutions:
+    %h3
+      Evolutions
       - if @pokemon.evolutions.count > 0
         - @pokemon.evolutions.each do |evolution|
           - pokemon = Pokemon.find(evolution.evolves_to)
           %br
           = link_to pokemon_from_path(pokemon.id, :evolves_from => @pokemon.id), :class => 'btn btn-default btn-evolution' do
-            #{pokemon.name}
+            %h1
+              #{pokemon.name}
+      - else
+        %br
+        = link_to '#', :disabled => true, :class => 'btn btn-default btn-evolution' do
+          %h1
+            (None)
 
   / #devolution_half
   /   %h3.center
