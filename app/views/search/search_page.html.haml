@@ -1,5 +1,7 @@
 / %h1 Find a Pokemon
 
+
 = form_tag find_path, :method => :post do
-  = text_field_tag 'query', nil, :class => 'form-control search-stuff big-ass-form', :type => 'text'
-  = submit_tag 'Search', :class => 'btn btn-default search-stuff btn-search'
+  .center-me
+    = text_field_tag 'query', nil, :class => 'big-ass-form', :type => 'text'
+    = submit_tag 'Search', :class => 'btn btn-default big-ass-button'
