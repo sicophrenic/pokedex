@@ -12,11 +12,11 @@
 
   %p#notice= notice
 
-  .jumbotron.pokemon-hero
-    %h1.pokemon-hero-name
+  .center-me
+    .pokemon-name
       #{@pokemon.name}
     - if @evolution
-      %p
+      .pokemon-evolution
         Evolves from #{@evolution.evolved_from}: #{@evolution.evolves_by}
 
   .evolution_halves#devolution_half

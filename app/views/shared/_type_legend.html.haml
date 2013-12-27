@@ -1,0 +1,11 @@
+.type-legend.center-me
+  - num_types = Poketype::COLOR_CODES.keys.count
+
+  %br
+  - Poketype::COLOR_CODES.keys[0..num_types/2].each do |type|
+    %div{ :class => "legend #{type.downcase}" }
+    #{type}
+  %br
+  - Poketype::COLOR_CODES.keys[num_types/2..-1].each do |type|
+    %div{ :class => "legend #{type.downcase}" }
+    #{type}

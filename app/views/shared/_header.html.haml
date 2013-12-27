@@ -1,10 +1,12 @@
 %li
   %a{ :href => root_path }
     SIMPLEDEX
+|
 - if user_signed_in?
   %li
     %a{ :href => search_path }
       SEARCH
+  |
   %li
     %a{ :href => destroy_user_session_path }
       SIGN OUT
